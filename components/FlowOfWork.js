@@ -1,0 +1,242 @@
+"use client";
+
+
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import ReactLenis from "lenis/react";
+import { useEffect, useRef, useState } from "react";
+
+
+const steps = [
+  { title: "1.Research", description: "Understanding client goals, audience, and challenges.", imgUrl: "/images/lummi/research.jpg" },
+  { title: "2.Design", description: "Crafting beautiful UI/UX aligned with brand identity.", imgUrl: "/images/lummi/design.jpg" },
+  { title: "3.Development", description: "Building responsive and fast websites using modern tech.", imgUrl: "/images/lummi/development.jpg" },
+  { title: "4.Testing", description: "Ensuring pixel-perfect performance across all devices.", imgUrl: "/images/lummi/testing.jpg" },
+  { title: "5.Launch", description: "Deploying and optimizing for real-world performance.", imgUrl: "/images/lummi/launch.jpg" },
+];
+
+
+const Skiper34 = () => {
+  return (
+    <ReactLenis root>
+      <section className="relative min-h-screen w-full bg-black flex flex-col items-center gap-[5vh] sm:gap-[8vh] md:gap-[10vh] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 pt-20 sm:pt-24 md:pt-28 lg:pt-[30vh] pb-12 sm:pb-16 md:pb-[20vh]">
+        {/* Background decorative elements matching Hero */}
+        <div className="absolute inset-0">
+          {/* Subtle gradient overlay matching Hero */}
+          <div className="absolute inset-0 bg-linear-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
+          
+          {/* Animated grid background */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px'
+            }}></div>
+          </div>
+          
+          {/* Ambient glow effects similar to Hero */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
+        </div>
+
+
+        {/* Main Heading */}
+        <motion.div 
+          className="relative z-10 text-center mb-4 sm:mb-6 md:mb-8 px-4 max-w-5xl mx-auto"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.h2 
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white tracking-tight leading-tight"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2 }}
+          >
+            {["THIS", "IS", "HOW", "WE", "DO", "OUR", "WORK"].map((word, index) => (
+              <motion.span
+                key={index}
+                className="inline-block mr-2 sm:mr-3 md:mr-4"
+                initial={{ opacity: 0, y: 50, rotateX: -90 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.1,
+                  ease: [0.215, 0.61, 0.355, 1]
+                }}
+                whileHover={{ 
+                  scale: 1.1,
+                  color: "#60a5fa",
+                  textShadow: "0 0 20px rgba(96, 165, 250, 0.5)",
+                  transition: { duration: 0.3 }
+                }}
+                style={{ 
+                  perspective: "1000px",
+                  transformStyle: "preserve-3d"
+                }}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </motion.h2>
+          
+          {/* Animated underline */}
+          <motion.div
+            className="mx-auto mt-4 sm:mt-6 h-0.5 sm:h-1 bg-linear-to-r from-transparent via-blue-500 to-transparent"
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ width: "60%", opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
+          />
+          
+          {/* Glowing particles */}
+          <motion.div
+            className="absolute -top-4 left-1/2 w-2 h-2 bg-blue-400 rounded-full blur-sm"
+            animate={{
+              x: ["-50%", "100%", "-50%"],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute -bottom-4 right-1/4 w-2 h-2 bg-purple-400 rounded-full blur-sm"
+            animate={{
+              x: ["0%", "-100%", "0%"],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1
+            }}
+          />
+        </motion.div>
+
+
+        <div className="absolute z-10 left-1/2 top-24 grid -translate-x-1/2 content-start justify-items-center gap-6 text-center">
+          <span className="relative max-w-[12ch] text-xs uppercase leading-tight text-white/40 after:absolute after:left-1/2 after:top-full after:h-16 after:w-px after:bg-linear-to-b after:from-white/20 after:to-transparent after:content-['']">
+          </span>
+        </div>
+        {steps.map((step, idx) => (
+          <StickyCard_003 key={idx} step={step} />
+        ))}
+      </section>
+    </ReactLenis>
+  );
+};
+
+
+const StickyCard_003 = ({ step }) => {
+  const vertMargin = 10;
+  const container = useRef(null);
+  const [maxScrollY, setMaxScrollY] = useState(Infinity);
+  const hasSetMaxScrollY = useRef(false);
+
+
+  const filter = useMotionValue(0);
+  // Remove filter2, add negateFilter
+  const negateFilter = useTransform(filter, (value) => -value);
+
+
+  const { scrollY } = useScroll({
+    target: container,
+  });
+  const scale = useTransform(scrollY, [maxScrollY, maxScrollY + 10000], [1, 0]);
+  const isInView = useInView(container, {
+    margin: `0px 0px -${100 - vertMargin}% 0px`,
+    once: true,
+  });
+
+
+  useEffect(() => {
+    const unsubscribe = scrollY.on("change", (latestScrollY) => {
+      let animationValue = 1;
+      if (latestScrollY > maxScrollY) {
+        animationValue = Math.max(0, 1 - (latestScrollY - maxScrollY) / 10000);
+      }
+
+
+      scale.set(animationValue);
+      filter.set((1 - animationValue) * 100);
+    });
+
+
+    return () => unsubscribe();
+  }, [maxScrollY, scrollY, scale, filter]);
+
+
+  useEffect(() => {
+    if (isInView && !hasSetMaxScrollY.current) {
+      hasSetMaxScrollY.current = true;
+      // Defer state update to avoid cascading renders
+      queueMicrotask(() => {
+        setMaxScrollY(scrollY.get());
+      });
+    }
+  }, [isInView, scrollY]);
+
+
+  return (
+    <motion.div
+      ref={container}
+      className="rounded-2xl sm:rounded-3xl md:rounded-4xl sticky h-[200px] w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl overflow-hidden bg-neutral-200 shadow-2xl"
+      style={{
+        scale: scale,
+        rotate: filter,
+        height: `${100 - 2 * vertMargin}vh`,
+        top: `${vertMargin}vh`,
+      }}
+    >
+      <motion.img
+        src={step.imgUrl}
+        alt={step.title}
+        style={{
+          rotate: negateFilter,
+        }}
+        className="h-full w-full scale-125 object-cover"
+        sizes="90vw"
+      />
+      
+      {/* Text overlay */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12">
+        <motion.h3 
+          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-3 md:mb-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {step.title}
+        </motion.h3>
+        <motion.p 
+          className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 max-w-2xl leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          {step.description}
+        </motion.p>
+      </div>
+    </motion.div>
+  );
+};
+
+
+export { Skiper34, StickyCard_003 };
+export default Skiper34;
