@@ -300,7 +300,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen bg-black overflow-hidden">
       {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0">
         {/* Subtle gradient overlay matching navbar */}
         <div className="absolute inset-0 bg-linear-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
         
@@ -321,14 +321,14 @@ export default function Hero() {
       </div>
 
       {/* Main content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-8 sm:pb-12 md:pb-16 lg:pb-20">
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 md:pb-20">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left column - Text content */}
-          <div className="space-y-5 sm:space-y-6 md:space-y-8 z-10 order-2 lg:order-1">
+          <div className="space-y-8 z-10">
             {/* Available for Work badge - matching navbar style */}
             <div 
               ref={badgeRef}
-              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-linear-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-white/10 shadow-xl"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-white/10 shadow-xl"
               style={{
                 boxShadow: `
                   0 0 20px rgba(0, 0, 0, 0.4),
@@ -337,16 +337,16 @@ export default function Hero() {
               }}
             >
               <div className="relative flex items-center justify-center">
-                <div className="absolute w-2.5 h-2.5 sm:w-3 sm:h-3 bg-emerald-500 rounded-full animate-ping"></div>
-                <div className="relative w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full"></div>
+                <div className="absolute w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
+                <div className="relative w-2 h-2 bg-emerald-400 rounded-full"></div>
               </div>
-              <span className="text-white/90 text-xs sm:text-sm font-medium tracking-wide">Available for Work</span>
+              <span className="text-white/90 text-sm font-medium tracking-wide">Available for Work</span>
             </div>
 
             {/* Main heading */}
             <h1 
               ref={headingRef}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight sm:leading-tight md:leading-tight tracking-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] tracking-tight"
               style={{ 
                 fontFamily: 'var(--font-geist-sans)',
                 perspective: '1000px',
@@ -355,7 +355,7 @@ export default function Hero() {
               {['Transform', 'your', 'ideas', 'into', 'digital', 'success', 'with', 'us!'].map((word, index) => (
                 <span 
                   key={index} 
-                  className="word inline-block mr-1.5 sm:mr-2 md:mr-3"
+                  className="word inline-block mr-3 md:mr-4"
                   style={{ transformStyle: 'preserve-3d' }}
                 >
                   {word}
@@ -366,17 +366,17 @@ export default function Hero() {
             {/* Subtitle */}
             <p 
               ref={subtitleRef}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-white/70 leading-relaxed max-w-xl font-light tracking-wide"
+              className="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl font-light tracking-wide"
               style={{ fontFamily: 'var(--font-geist-sans)' }}
             >
               We&apos;re your partner in product design, website creation, and branding for every stage of your business.
             </p>
 
             {/* CTA Buttons - Futuristic animated buttons */}
-            <div ref={buttonsRef} className="flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-3 md:gap-4" style={{ perspective: '1000px' }}>
+            <div ref={buttonsRef} className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4" style={{ perspective: '1000px' }}>
               <Link 
                 href="#services"
-                className="relative px-5 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4 bg-white text-gray-900 font-semibold text-sm sm:text-base rounded-full overflow-hidden group tracking-wide w-full sm:w-auto text-center"
+                className="relative px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-900 font-semibold rounded-full overflow-hidden group tracking-wide w-full sm:w-auto text-center"
                 style={{ 
                   fontFamily: 'var(--font-geist-sans)',
                   transformStyle: 'preserve-3d',
@@ -419,7 +419,7 @@ export default function Hero() {
               
               <Link 
                 href="#contact"
-                className="relative px-5 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4 bg-linear-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-white/10 text-white font-semibold text-sm sm:text-base rounded-full overflow-hidden group tracking-wide w-full sm:w-auto text-center"
+                className="relative px-6 sm:px-8 py-3 sm:py-4 bg-linear-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-white/10 text-white font-semibold rounded-full overflow-hidden group tracking-wide w-full sm:w-auto text-center"
                 style={{ 
                   fontFamily: 'var(--font-geist-sans)',
                   transformStyle: 'preserve-3d',
@@ -464,19 +464,18 @@ export default function Hero() {
           </div>
 
           {/* Right column - Futuristic GSAP Animation */}
-          <div ref={containerRef} className="relative h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px] xl:h-[550px] flex items-center justify-center order-1 lg:order-2 -mb-4 sm:mb-0">
+          <div ref={containerRef} className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] xl:h-[600px] flex items-center justify-center mt-8 lg:mt-0">
             {/* Central glow - darker theme */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-white/5 rounded-full blur-3xl"></div>
+              <div className="w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
             </div>
 
             {/* Animated orbs container - darker glass theme */}
-            <div className="relative w-full h-full flex items-center justify-center scale-[0.65] sm:scale-75 md:scale-90 lg:scale-95 xl:scale-100">
+            <div className="relative w-full h-full flex items-center justify-center">
               {/* Large outer orb */}
-                            {/* Large outer orb */}
               <div
                 ref={(el) => (orbsRef.current[0] = el)}
-                className="absolute w-72 h-72 sm:w-80 sm:h-80 rounded-full border border-white/10 backdrop-blur-xl"
+                className="absolute w-80 h-80 rounded-full border border-white/10 backdrop-blur-xl"
                 style={{
                   background: 'radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03), transparent)',
                   boxShadow: `
@@ -490,7 +489,7 @@ export default function Hero() {
               {/* Medium orb */}
               <div
                 ref={(el) => (orbsRef.current[1] = el)}
-                className="absolute w-56 h-56 sm:w-60 sm:h-60 rounded-full border border-white/10 backdrop-blur-xl"
+                className="absolute w-60 h-60 rounded-full border border-white/10 backdrop-blur-xl"
                 style={{
                   background: 'radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05), transparent)',
                   boxShadow: `
@@ -504,7 +503,7 @@ export default function Hero() {
               {/* Small inner orb */}
               <div
                 ref={(el) => (orbsRef.current[2] = el)}
-                className="absolute w-36 h-36 sm:w-40 sm:h-40 rounded-full border border-white/15 backdrop-blur-xl"
+                className="absolute w-40 h-40 rounded-full border border-white/15 backdrop-blur-xl"
                 style={{
                   background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06), transparent)',
                   boxShadow: `
@@ -543,65 +542,6 @@ export default function Hero() {
               <div
                 ref={(el) => (orbsRef.current[6] = el)}
                 className="absolute w-60 h-60 rounded-full border border-white/5"
-                style={{ borderStyle: 'dashed' }}
-              ></div>
-
-              {/* Medium orb */}
-              <div
-                ref={(el) => (orbsRef.current[1] = el)}
-                className="absolute w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 rounded-full border border-white/10 backdrop-blur-xl"
-                style={{
-                  background: 'radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05), transparent)',
-                  boxShadow: `
-                    0 0 40px rgba(255, 255, 255, 0.12),
-                    inset 0 0 40px rgba(255, 255, 255, 0.06),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.1)
-                  `,
-                }}
-              ></div>
-
-              {/* Small inner orb */}
-              <div
-                ref={(el) => (orbsRef.current[2] = el)}
-                className="absolute w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full border border-white/15 backdrop-blur-xl"
-                style={{
-                  background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06), transparent)',
-                  boxShadow: `
-                    0 0 30px rgba(255, 255, 255, 0.15),
-                    inset 0 0 30px rgba(255, 255, 255, 0.08),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.15)
-                  `,
-                }}
-              ></div>
-
-              {/* Tiny core orb */}
-              <div
-                ref={(el) => (orbsRef.current[3] = el)}
-                className="absolute w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-full border border-white/20 backdrop-blur-xl"
-                style={{
-                  background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08), transparent)',
-                  boxShadow: `
-                    0 0 20px rgba(255, 255, 255, 0.2),
-                    inset 0 0 20px rgba(255, 255, 255, 0.1),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.2)
-                  `,
-                }}
-              ></div>
-
-              {/* Orbital ring guides */}
-              <div
-                ref={(el) => (orbsRef.current[4] = el)}
-                className="absolute w-[320px] h-[320px] sm:w-[360px] sm:h-[360px] md:w-[400px] md:h-[400px] rounded-full border border-white/5"
-                style={{ borderStyle: 'dashed' }}
-              ></div>
-              <div
-                ref={(el) => (orbsRef.current[5] = el)}
-                className="absolute w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full border border-white/5"
-                style={{ borderStyle: 'dashed' }}
-              ></div>
-              <div
-                ref={(el) => (orbsRef.current[6] = el)}
-                className="absolute w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 rounded-full border border-white/5"
                 style={{ borderStyle: 'dashed' }}
               ></div>
 

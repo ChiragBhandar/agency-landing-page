@@ -233,27 +233,3 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
 }
-
-/* Prevent horizontal overflow */
-html {
-  overflow-x: hidden;
-  width: 100%;
-}
-
-body {
-  overflow-x: hidden;
-  width: 100%;
-  position: relative;
-}
-
-/* Ensure all sections respect viewport width */
-section {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
