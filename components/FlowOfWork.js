@@ -24,9 +24,9 @@ const steps = [
 const Skiper34 = () => {
   return (
     <ReactLenis root>
-      <section className="relative min-h-screen w-full bg-black flex flex-col items-center gap-[5vh] sm:gap-[8vh] md:gap-[10vh] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 pt-20 sm:pt-24 md:pt-28 lg:pt-[30vh] pb-12 sm:pb-16 md:pb-[20vh]">
+      <section className="relative min-h-screen w-full max-w-[100vw] bg-black flex flex-col items-center gap-[5vh] sm:gap-[8vh] md:gap-[10vh] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 pt-20 sm:pt-24 md:pt-28 lg:pt-[30vh] pb-12 sm:pb-16 md:pb-[20vh] overflow-hidden">
         {/* Background decorative elements matching Hero */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 w-full max-w-[100vw]">
           {/* Subtle gradient overlay matching Hero */}
           <div className="absolute inset-0 bg-linear-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
           
@@ -142,9 +142,10 @@ const Skiper34 = () => {
 
 
 const StickyCard_003 = ({ step }) => {
-  const vertMargin = 10;
+  // Responsive vertical margin - use state to avoid SSR mismatch
+  const [vertMargin, setVertMargin] = useState(10);
   const container = useRef(null);
-  const [maxScrollY, setMaxScrollY] = useState(Infinity);
+  const [maxScrollY, setMaxScrollY] = useState(0);
   const hasSetMaxScrollY = useRef(false);
 
 
@@ -156,7 +157,12 @@ const StickyCard_003 = ({ step }) => {
   const { scrollY } = useScroll({
     target: container,
   });
-  const scale = useTransform(scrollY, [maxScrollY, maxScrollY + 10000], [1, 0]);
+  // Use a function for scale to avoid NaN during initial render
+  const scale = useTransform(scrollY, (latest) => {
+    if (maxScrollY === 0) return 1;
+    if (latest <= maxScrollY) return 1;
+    return Math.max(0, 1 - (latest - maxScrollY) / 10000);
+  });
   const isInView = useInView(container, {
     margin: `0px 0px -${100 - vertMargin}% 0px`,
     once: true,
@@ -165,20 +171,36 @@ const StickyCard_003 = ({ step }) => {
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latestScrollY) => {
+      if (maxScrollY === 0) {
+        filter.set(0);
+        return;
+      }
+      
       let animationValue = 1;
       if (latestScrollY > maxScrollY) {
         animationValue = Math.max(0, 1 - (latestScrollY - maxScrollY) / 10000);
       }
 
-
-      scale.set(animationValue);
       filter.set((1 - animationValue) * 100);
     });
 
 
     return () => unsubscribe();
-  }, [maxScrollY, scrollY, scale, filter]);
+  }, [maxScrollY, scrollY, filter]);
 
+  // Set vertMargin based on window width (client-side only)
+  useEffect(() => {
+    const handleResize = () => {
+      setVertMargin(window.innerWidth < 640 ? 20 : 10);
+    };
+    
+    // Set initial value
+    handleResize();
+    
+    // Listen for window resize
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (isInView && !hasSetMaxScrollY.current) {
@@ -194,7 +216,7 @@ const StickyCard_003 = ({ step }) => {
   return (
     <motion.div
       ref={container}
-      className="rounded-2xl sm:rounded-3xl md:rounded-4xl sticky h-[200px] w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl overflow-hidden bg-neutral-200 shadow-2xl"
+      className="rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-4xl sticky w-[85vw] sm:w-[calc(100vw-32px)] max-w-[280px] sm:max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl overflow-hidden bg-neutral-200 shadow-2xl"
       style={{
         scale: scale,
         rotate: filter,
@@ -208,14 +230,14 @@ const StickyCard_003 = ({ step }) => {
         style={{
           rotate: negateFilter,
         }}
-        className="h-full w-full scale-125 object-cover"
+        className="absolute inset-0 h-full w-full object-cover object-center "
         sizes="90vw"
       />
       
       {/* Text overlay */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12">
+      <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-3 sm:p-6 md:p-8 lg:p-10 xl:p-12">
         <motion.h3 
-          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-2 sm:mb-3 md:mb-4"
+          className="text-base sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-1 sm:mb-3 md:mb-4"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -224,7 +246,7 @@ const StickyCard_003 = ({ step }) => {
           {step.title}
         </motion.h3>
         <motion.p 
-          className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 max-w-2xl leading-relaxed"
+          className="text-xs sm:text-base md:text-lg lg:text-xl text-white/90 max-w-2xl leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

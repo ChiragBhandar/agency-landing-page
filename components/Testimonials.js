@@ -119,10 +119,10 @@ export default function Testimonials() {
     <section
       id="testimonial"
       ref={sectionRef}
-      className="relative min-h-screen w-full bg-black py-12 sm:py-16 md:py-20 overflow-hidden"
+      className="relative min-h-screen w-full max-w-[100vw] bg-black py-12 sm:py-16 md:py-20 overflow-hidden"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-gray-900 via-black to-black"></div>
+      <div className="absolute inset-0 w-full max-w-[100vw] bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-gray-900 via-black to-black"></div>
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
 
       {/* Animated Orbs */}
@@ -281,6 +281,17 @@ const TestimonialCarousel = ({ testimonials }) => {
       display: none !important;
     }
   }
+
+  @media (max-width: 520px) {
+    .Testimonial_Carousel {
+      min-height: 320px !important;
+      padding-bottom: 40px !important;
+    }
+    .Testimonial_Carousel .swiper-slide {
+      width: 240px !important;
+      min-height: 280px !important;
+    }
+  }
 `;
 
   return (
@@ -292,7 +303,7 @@ const TestimonialCarousel = ({ testimonials }) => {
         duration: 0.6,
         delay: 0.3,
       }}
-      className="relative w-full max-w-6xl mx-auto px-2 sm:px-4 md:px-5"
+      className="relative w-full max-w-[calc(100vw-32px)] mx-auto px-2 sm:px-4 md:px-5"
     >
       <style>{css}</style>
 
@@ -384,7 +395,7 @@ const TestimonialCard = ({ testimonial }) => {
             alt={testimonial.name}
             width={56}
             height={56}
-            className="relative w-14 h-14 rounded-full object-cover border-2 border-white/30"
+            className="relative w-14 h-14 rounded-full object-cover object-center border-2 border-white/30"
           />
         </motion.div>
         <div>

@@ -244,7 +244,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative bg-black text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative w-full max-w-[100vw] bg-black text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 overflow-hidden"
     >
       {/* Animated background gradient orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-900/20 rounded-full blur-3xl floating"></div>

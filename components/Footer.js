@@ -82,9 +82,9 @@ export default function Footer() {
   ];
 
   return (
-    <footer ref={footerRef} className="bg-black text-white pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 relative overflow-hidden">
+    <footer ref={footerRef} className="w-full max-w-[100vw] bg-black text-white pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 relative overflow-hidden">
       {/* Background decorative elements matching hero */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 w-full max-w-[100vw]">
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-linear-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
         
@@ -228,25 +228,25 @@ export default function Footer() {
 
         {/* Bottom Footer */}
         <motion.div
-          className="footer-content flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0"
+          className="footer-content flex flex-col min-[450px]:flex-row justify-between items-center space-y-4 min-[450px]:space-y-0"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          <div className="text-white/60 text-sm flex items-center font-light tracking-wide" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+          <div className="text-white/60 text-sm flex flex-col min-[450px]:flex-row min-[450px]:items-center items-center text-center min-[450px]:text-left font-light tracking-wide" style={{ fontFamily: 'var(--font-geist-sans)' }}>
             <span>© {currentYear} Code&Canvas. All rights reserved.</span>
             <motion.span
-              className="mx-2 text-white/40"
+              className="mx-2 text-white/40 hidden min-[450px]:inline"
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
             >
               •
             </motion.span>
-            <span className="flex items-center">
+            <span className="flex items-center mt-2 min-[450px]:mt-0">
               Made with <Heart className="w-4 h-4 mx-1 text-white/60" fill="currentColor" /> by Code&Canvas
             </span>
           </div>
-          <div className="flex space-x-6 text-sm font-light tracking-wide" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+          <div className="flex flex-col min-[450px]:flex-row space-y-3 min-[450px]:space-y-0 min-[450px]:space-x-6 text-sm font-light tracking-wide items-center" style={{ fontFamily: 'var(--font-geist-sans)' }}>
             <motion.a
               href="#"
               className="text-white/60 hover:text-white transition-colors"

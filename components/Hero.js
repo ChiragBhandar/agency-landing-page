@@ -298,9 +298,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden">
+    <section className="relative min-h-screen w-full max-w-[100vw] bg-black overflow-hidden">
       {/* Background decorative elements */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 w-full max-w-[100vw]">
         {/* Subtle gradient overlay matching navbar */}
         <div className="absolute inset-0 bg-linear-to-br from-gray-900/50 via-gray-800/30 to-black"></div>
         
@@ -324,7 +324,7 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 md:pt-28 lg:pt-32 pb-12 sm:pb-16 md:pb-20">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
           {/* Left column - Text content */}
-          <div className="space-y-8 z-10">
+          <div className="space-y-8 z-10 max-[770px]:flex max-[770px]:flex-col max-[770px]:items-center max-[770px]:text-center">
             {/* Available for Work badge - matching navbar style */}
             <div 
               ref={badgeRef}
@@ -452,10 +452,6 @@ export default function Hero() {
                 <span className="absolute inset-0 rounded-full border border-white/20 group-hover:border-white/40 transition-colors duration-300"></span>
                 
                 <span className="relative z-10 group-hover:text-shadow-sm transition-all duration-300">Contact Us</span>
-                
-                {/* Particle effect corners */}
-                <span className="absolute top-1 right-1 w-1 h-1 bg-white/60 rounded-full group-hover:scale-150 transition-transform duration-300"></span>
-                <span className="absolute bottom-1 left-1 w-1 h-1 bg-white/60 rounded-full group-hover:scale-150 transition-transform duration-300"></span>
                 
                 {/* Energy pulse */}
                 <span className="absolute inset-0 bg-white/5 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-full"></span>

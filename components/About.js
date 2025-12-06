@@ -116,10 +116,10 @@ export default function About() {
     <section
       id="about"
       ref={containerRef}
-      className="relative min-h-screen w-full bg-black text-white overflow-hidden py-12 sm:py-16 md:py-20"
+      className="relative min-h-screen w-full max-w-[100vw] bg-black text-white overflow-hidden py-12 sm:py-16 md:py-20"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 w-full max-w-[100vw] pointer-events-none">
         {/* Grid Background */}
         <div className="absolute inset-0 opacity-[0.03]">
           <div

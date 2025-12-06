@@ -192,7 +192,7 @@ export default function Services() {
     <section
       id="services"
       ref={containerRef}
-      className="relative min-h-screen w-full bg-black flex flex-col items-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 overflow-hidden"
+      className="relative min-h-screen w-full max-w-[100vw] bg-black flex flex-col items-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 overflow-hidden"
     >
       {/* Background decorative elements */}
       <div className="absolute inset-0 pointer-events-none">
@@ -310,7 +310,7 @@ export default function Services() {
       </motion.div>
 
       {/* Services Carousel */}
-      <div className="relative z-10 w-full flex items-center justify-center">
+      <div className="relative z-10 w-full flex items-center justify-center px-4 overflow-hidden">
         <ServiceCarousel 
           services={services} 
           loop={true}
@@ -375,6 +375,7 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
   const css = `
     .ServiceCarousel {
       padding-bottom: 60px !important;
+      max-width: 100% !important;
     }
     
     .ServiceCarousel .swiper-pagination-bullet {
@@ -407,6 +408,40 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
       background: rgba(96, 165, 250, 0.2);
       border-color: rgba(96, 165, 250, 0.6);
       transform: scale(1.1);
+    }
+
+    @media (max-width: 639px) {
+      .ServiceCarousel {
+        width: 75vw !important;
+        max-width: 340px !important;
+        height: 500px !important;
+        padding-bottom: 35px !important;
+      }
+      
+      .ServiceCarousel .swiper-pagination-bullet {
+        width: 6px !important;
+        height: 6px !important;
+      }
+      
+      .ServiceCarousel .swiper-pagination-bullet-active {
+        width: 20px !important;
+      }
+    }
+
+    @media (max-width: 475px) {
+      .ServiceCarousel {
+        width: 75vw !important;
+        max-width: 250px !important;
+        height: 400px !important;
+      }
+    }
+
+    @media (max-width: 374px) {
+      .ServiceCarousel {
+        width: 75vw !important;
+        max-width: 200px !important;
+        height: 350px !important;
+      }
     }
   `;
 
@@ -448,7 +483,7 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
               }
             : false
         }
-        className="ServiceCarousel h-[600px] w-[420px] md:h-[650px] md:w-[460px] lg:h-[700px] lg:w-[500px]"
+        className="ServiceCarousel h-[350px] w-[75vw] max-w-[200px] xs:h-[400px] xs:max-w-[250px] sm:h-[500px] sm:max-w-[340px] md:h-[550px] md:max-w-[370px] lg:h-[600px] lg:max-w-[400px]"
         modules={[EffectCards, Autoplay, Pagination, Navigation]}
       >
         {services.map((service, index) => (
@@ -461,7 +496,7 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
             >
               {/* Card container with glass effect */}
               <div className={`
-                relative h-full w-full p-8 rounded-3xl
+                relative h-full w-full p-4 xs:p-6 sm:p-8 rounded-2xl sm:rounded-3xl
                 bg-linear-to-br ${service.color}
                 border-2 ${service.borderColor}
                 ${service.shadowColor}
@@ -510,7 +545,7 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
                 <div className="relative z-10 h-full flex flex-col">
                   {/* Icon */}
                   <motion.div
-                    className="text-7xl mb-6"
+                    className="text-5xl xs:text-6xl sm:text-7xl mb-3 xs:mb-4 sm:mb-6"
                     animate={{
                       scale: hoveredCard === service.id ? [1, 1.2, 1] : 1,
                       rotate: hoveredCard === service.id ? [0, 10, -10, 0] : 0,
@@ -521,30 +556,30 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
                   </motion.div>
 
                   {/* Title */}
-                  <h3 className="text-3xl font-bold text-white mb-4 drop-shadow-lg transition-colors duration-300" style={{
+                  <h3 className="text-xl xs:text-2xl sm:text-3xl font-bold text-white mb-2 xs:mb-3 sm:mb-4 drop-shadow-lg transition-colors duration-300" style={{
                     textShadow: '0 2px 10px rgba(255,255,255,0.3)',
                   }}>
                     {service.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-200 mb-6 leading-relaxed text-base font-medium drop-shadow">
+                  <p className="text-gray-200 mb-3 xs:mb-4 sm:mb-6 leading-relaxed text-xs xs:text-sm sm:text-base font-medium drop-shadow">
                     {service.description}
                   </p>
 
                   {/* Features */}
-                  <div className="space-y-3 grow">
+                  <div className="space-y-2 xs:space-y-2.5 sm:space-y-3 grow">
                     {service.features.map((feature, idx) => (
                       <motion.div
                         key={idx}
-                        className="flex items-center text-sm text-gray-300 font-medium"
+                        className="flex items-center text-xs xs:text-xs sm:text-sm text-gray-300 font-medium"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: idx * 0.05 }}
                       >
                         <motion.span
-                          className="w-2 h-2 bg-white rounded-full mr-3 shrink-0 shadow-md"
+                          className="w-1.5 h-1.5 xs:w-2 xs:h-2 bg-white rounded-full mr-2 xs:mr-3 shrink-0 shadow-md"
                           animate={{
                             scale: hoveredCard === service.id ? [1, 1.5, 1] : 1,
                           }}
@@ -557,18 +592,18 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
 
                   {/* Learn More Link */}
                   <motion.div
-                    className="mt-6 pt-6 border-t border-white/20"
+                    className="mt-3 xs:mt-4 sm:mt-6 pt-3 xs:pt-4 sm:pt-6 border-t border-white/20"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: hoveredCard === service.id ? 1 : 0.8 }}
                     transition={{ duration: 0.3 }}
                   >
                     <a
                       href="#"
-                      className="group/link inline-flex items-center text-white hover:text-gray-300 transition-colors duration-300 font-semibold"
+                      className="group/link inline-flex items-center text-white hover:text-gray-300 transition-colors duration-300 font-semibold text-xs xs:text-sm sm:text-base"
                     >
                       <span className="font-bold">Learn More</span>
                       <motion.svg
-                        className="w-4 h-4 ml-2"
+                        className="w-3 h-3 xs:w-4 xs:h-4 ml-2"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -589,12 +624,12 @@ function ServiceCarousel({ services, loop = true, autoplay = false, showPaginati
                 </div>
 
                 {/* Decorative corner accents - metallic */}
-                <div className="absolute top-0 left-0 w-24 h-24 border-t-2 border-l-2 border-white/40 rounded-tl-3xl shadow-inner"></div>
-                <div className="absolute bottom-0 right-0 w-24 h-24 border-b-2 border-r-2 border-white/40 rounded-br-3xl shadow-inner"></div>
+                <div className="absolute top-0 left-0 w-12 h-12 xs:w-16 xs:h-16 sm:w-24 sm:h-24 border-t-2 border-l-2 border-white/40 rounded-tl-2xl sm:rounded-tl-3xl shadow-inner"></div>
+                <div className="absolute bottom-0 right-0 w-12 h-12 xs:w-16 xs:h-16 sm:w-24 sm:h-24 border-b-2 border-r-2 border-white/40 rounded-br-2xl sm:rounded-br-3xl shadow-inner"></div>
                 
                 {/* Royal embellishments */}
-                <div className="absolute top-4 right-4 w-3 h-3 bg-white/50 rounded-full shadow-lg"></div>
-                <div className="absolute bottom-4 left-4 w-3 h-3 bg-white/50 rounded-full shadow-lg"></div>
+                <div className="absolute top-2 right-2 xs:top-3 xs:right-3 sm:top-4 sm:right-4 w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 bg-white/50 rounded-full shadow-lg"></div>
+                <div className="absolute bottom-2 left-2 xs:bottom-3 xs:left-3 sm:bottom-4 sm:left-4 w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 bg-white/50 rounded-full shadow-lg"></div>
               </div>
             </div>
           </SwiperSlide>
