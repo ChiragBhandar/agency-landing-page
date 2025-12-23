@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Heart } from "lucide-react";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaGithub } from "react-icons/fa";
@@ -15,6 +15,13 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
+    // Respect reduced motion preference: skip scroll-based tweens if user prefers reduced motion
+    const prefersReduced = typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReduced) return;
+
     const ctx = gsap.context(() => {
       // Animate footer content on scroll
       gsap.fromTo(
@@ -235,13 +242,8 @@ export default function Footer() {
         >
           <div className="text-white/60 text-sm flex flex-col min-[450px]:flex-row min-[450px]:items-center items-center text-center min-[450px]:text-left font-light tracking-wide" style={{ fontFamily: 'var(--font-geist-sans)' }}>
             <span>© {currentYear} Code&Canvas. All rights reserved.</span>
-            <motion.span
-              className="mx-2 text-white/40 hidden min-[450px]:inline"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 1, repeat: Infinity, repeatDelay: 1 }}
-            >
-              •
-            </motion.span>
+            {/* Use a static bullet when reduced motion is preferred to avoid infinite animations */}
+            <span className="mx-2 text-white/40 hidden min-[450px]:inline">•</span>
             <span className="flex items-center mt-2 min-[450px]:mt-0">
               Made with <Heart className="w-4 h-4 mx-1 text-white/60" fill="currentColor" /> by Code&Canvas
             </span>

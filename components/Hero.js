@@ -17,6 +17,19 @@ export default function Hero() {
     const container = containerRef.current;
     if (!container) return;
 
+    // Respect user's reduced motion preference: do not run heavy animations.
+    const prefersReduced = typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      // Set final visible styles without animations to reduce CPU usage
+      if (badgeRef.current) gsap.set(badgeRef.current, { opacity: 1, y: 0, scale: 1 });
+      if (headingRef.current) gsap.set(headingRef.current.querySelectorAll('.word'), { opacity: 1, y: 0, rotateX: 0 });
+      if (subtitleRef.current) gsap.set(subtitleRef.current, { opacity: 1, y: 0 });
+      if (buttonsRef.current) gsap.set(buttonsRef.current.querySelectorAll('a'), { opacity: 1, scale: 1, rotationY: 0 });
+      return;
+    }
+
     const orbElements = orbsRef.current;
     const orbitalElements = orbitalsRef.current;
 

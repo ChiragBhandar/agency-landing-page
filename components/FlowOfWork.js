@@ -4,11 +4,13 @@
 import {
   motion,
   useInView,
-  useMotionValue,
   useScroll,
   useTransform,
 } from "framer-motion";
-import ReactLenis from "lenis/react";
+import dynamic from 'next/dynamic';
+// Load Lenis only on the client when needed to avoid adding it to the initial bundle
+const ReactLenis = dynamic(() => import('lenis/react'), { ssr: false, loading: () => null });
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 
@@ -22,9 +24,14 @@ const steps = [
 
 
 const Skiper34 = () => {
-  return (
-    <ReactLenis root>
-      <section className="relative min-h-screen w-full max-w-[100vw] bg-black flex flex-col items-center gap-[5vh] sm:gap-[8vh] md:gap-[10vh] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 pt-20 sm:pt-24 md:pt-28 lg:pt-[30vh] pb-12 sm:pb-16 md:pb-[20vh] overflow-hidden">
+  // detect reduced-motion preference; if user prefers reduced motion, avoid Lenis and heavy scroll handling
+  const [prefersReduced, setPrefersReduced] = useState(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+
+  const sectionBody = (
+    <section className="relative min-h-screen w-full max-w-[100vw] bg-black flex flex-col items-center gap-[5vh] sm:gap-[8vh] md:gap-[10vh] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 pt-20 sm:pt-24 md:pt-28 lg:pt-[30vh] pb-12 sm:pb-16 md:pb-[20vh] overflow-hidden">
         {/* Background decorative elements matching Hero */}
         <div className="absolute inset-0 w-full max-w-[100vw]">
           {/* Subtle gradient overlay matching Hero */}
@@ -133,15 +140,17 @@ const Skiper34 = () => {
           </span>
         </div>
         {steps.map((step, idx) => (
-          <StickyCard_003 key={idx} step={step} />
+          <StickyCard_003 key={idx} step={step} index={idx} />
         ))}
       </section>
-    </ReactLenis>
   );
+
+  // Conditionally wrap the sectionBody with Lenis when reduced-motion isn't requested
+  return prefersReduced ? sectionBody : <ReactLenis root>{sectionBody}</ReactLenis>;
 };
 
 
-const StickyCard_003 = ({ step }) => {
+const StickyCard_003 = ({ step, index = 0 }) => {
   // Responsive vertical margin - use state to avoid SSR mismatch
   const [vertMargin, setVertMargin] = useState(10);
   const container = useRef(null);
@@ -149,9 +158,6 @@ const StickyCard_003 = ({ step }) => {
   const hasSetMaxScrollY = useRef(false);
 
 
-  const filter = useMotionValue(0);
-  // Remove filter2, add negateFilter
-  const negateFilter = useTransform(filter, (value) => -value);
 
 
   const { scrollY } = useScroll({
@@ -169,24 +175,9 @@ const StickyCard_003 = ({ step }) => {
   });
 
 
-  useEffect(() => {
-    const unsubscribe = scrollY.on("change", (latestScrollY) => {
-      if (maxScrollY === 0) {
-        filter.set(0);
-        return;
-      }
-      
-      let animationValue = 1;
-      if (latestScrollY > maxScrollY) {
-        animationValue = Math.max(0, 1 - (latestScrollY - maxScrollY) / 10000);
-      }
-
-      filter.set((1 - animationValue) * 100);
-    });
-
-
-    return () => unsubscribe();
-  }, [maxScrollY, scrollY, filter]);
+  // No tilt/rotate effect: keep only scroll/scale behavior.
+  // Previous implementation updated a motion value to rotate the card/image on scroll.
+  // That has been removed to prevent the tilt. Keep existing scale logic above.
 
   // Set vertMargin based on window width (client-side only)
   useEffect(() => {
@@ -219,20 +210,23 @@ const StickyCard_003 = ({ step }) => {
       className="rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-4xl sticky w-[85vw] sm:w-[calc(100vw-32px)] max-w-[280px] sm:max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl overflow-hidden bg-neutral-200 shadow-2xl"
       style={{
         scale: scale,
-        rotate: filter,
         height: `${100 - 2 * vertMargin}vh`,
         top: `${vertMargin}vh`,
       }}
     >
-      <motion.img
-        src={step.imgUrl}
-        alt={step.title}
-        style={{
-          rotate: negateFilter,
-        }}
-        className="absolute inset-0 h-full w-full object-cover object-center "
-        sizes="90vw"
-      />
+      <div className="absolute inset-0 h-full w-full">
+        <Image
+          src={step.imgUrl}
+          alt={step.title}
+          fill
+          sizes="90vw"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+          // Prioritize the first image and lazy-load the rest to reduce initial bandwidth
+          loading={index === 0 ? 'eager' : 'lazy'}
+          priority={index === 0}
+          quality={index === 0 ? 75 : 60}
+        />
+      </div>
       
       {/* Text overlay */}
       <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end p-3 sm:p-6 md:p-8 lg:p-10 xl:p-12">

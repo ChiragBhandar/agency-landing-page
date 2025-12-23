@@ -29,6 +29,12 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="overflow-x-hidden">
+      <head>
+        {/* Performance: preconnect to Google fonts to speed font fetches */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        {/* Consider adding other preconnect/prefetch entries for analytics or CDNs if used */}
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
       >
