@@ -1,5 +1,46 @@
 @import "tailwindcss";
 
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+/* Enable GPU acceleration for smooth animations */
+.gpu-accelerate {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize animations for 60fps */
+.smooth-animation {
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduce motion for accessibility and performance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Content visibility for better rendering performance */
+.optimize-rendering {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Lazy loading optimization */
+.lazy-load {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
+
 :root {
   --background: oklch(0 0 0);
   --foreground: oklch(1.0000 0 0);
